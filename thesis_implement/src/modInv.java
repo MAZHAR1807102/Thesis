@@ -1,11 +1,9 @@
 import java.math.BigInteger;
-
 public class modInv {
     // Java program to find modular
 // inverse of 'a' under modulo m
 // using Fermat's little theorem.
 // This program works only if m is prime.
-
    // BigInteger k2 = new BigInteger("1");
         static BigInteger __gcd(BigInteger a, BigInteger b)
         {
@@ -17,7 +15,6 @@ public class modInv {
                 return __gcd(b, a.mod(b));
             }
         }
-
         // To compute x^y under modulo m
         static BigInteger power(BigInteger x, BigInteger y, BigInteger m)
         {
@@ -30,7 +27,6 @@ public class modInv {
 
             return (y.mod(k1).intValue()==0) ? p : (x.multiply(p).mod(m));
         }
-
         // Function to find modular
         // inverse of 'a' under modulo m
         // Assumption: m is prime
@@ -49,7 +45,6 @@ public class modInv {
                                 + power(a, m.subtract(k3), m));
             }
         }
-
         // Driver code
         public static void main(String[] args)
         {

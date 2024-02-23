@@ -1,0 +1,45 @@
+# Define a procedure to simulate network traffic and detect blackhole attacks
+proc detectBlackhole {} {
+    # Initialize variables to represent nodes in the ad hoc network
+    set num_nodes 100
+    set traffic_rate 100 ;# packets per second
+    set normal_traffic [expr {$num_nodes * $traffic_rate}]
+
+    # Simulate network traffic
+    for {set i 0} {$i < $num_nodes} {incr i} {
+        set received_packets($i) 0
+    }
+
+    # Send traffic across the network
+    for {set i 0} {$i < $num_nodes} {incr i} {
+        for {set j 0} {$j < $num_nodes} {incr j} {
+            if {$i != $j} {
+                set received_packets($j) [expr $received_packets($j) + [simulatePacketTransmission $i $j]]
+            }
+        }
+    }
+
+    # Check for blackhole nodes
+    set blackhole_detected false
+    for {set i 0} {$i < $num_nodes} {incr i} {
+        if {$received_packets($i) < $normal_traffic} {
+            puts "Blackhole detected at node $i"
+            set blackhole_detected true
+        }
+    }
+
+    if {!$blackhole_detected} {
+        puts "No blackhole detected in the network."
+    }
+}
+
+# Simulate packet transmission between nodes
+proc simulatePacketTransmission {source_node destination_node} {
+    # Here you can define your own logic to simulate packet transmission
+    # You may consider factors like packet loss, routing protocols, etc.
+    # For simplicity, we assume all packets are successfully transmitted.
+    return 1
+}
+
+# Run the blackhole detection algorithm
+detectBlackhole
